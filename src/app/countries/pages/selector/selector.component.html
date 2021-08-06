@@ -1,0 +1,83 @@
+<h1 class="mt-5"> Nesting selectors </h1>
+<hr>
+<br>
+
+<form (ngSubmit)="save()" [formGroup]="countriesForm">
+    
+    <!-- Region -->
+    <div class="row">
+        <div class="col">
+            <label class="col-sm-3 form-label" for="">Region</label>
+            <select class="form-control" 
+                    formControlName="region">
+                <option value="">
+                    -- Select a region --
+                </option>
+                <option *ngFor="let region of regions"
+                        [value]="region | lowercase">
+                    {{ region }}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Countries -->
+    <div class="row" *ngIf="countries.length > 0">
+        <div class="col">
+            <label class="col-sm-3 form-label" for="">country</label>
+            <select class="form-control" 
+                    formControlName="country">
+                <option value="">
+                    -- Select a country --
+                </option>
+                <option *ngFor="let country of countries"
+                        [value]="country.alpha3Code">
+                    {{ country.name }}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Border countries -->
+    <div class="row" *ngIf="countriesBorders.length! > 0">
+        <div class="col">
+            <label class="col-sm-3 form-label" for="">Border countries</label>
+            <select class="form-control" 
+                    formControlName="borderCountries">
+                <option value="">
+                    -- Select a country --
+                </option>
+                <option *ngFor="let country of countriesBorders"
+                       [value]="country.alpha3Code">
+                    {{ country.name }}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row mt-3" *ngIf="loading">
+        <div class="col">
+            <div class="alert alert-info">
+                Loading
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row my-3">
+        <div class="col">
+            <button class="btn btn-outline-dark float-end"
+                    type="submit">
+                save
+            </button>
+        </div>
+    </div>
+
+</form>
+
+<br>
+
+<h5>Form Validation: {{ countriesForm.valid }}</h5>
+<h5>Form Validation: {{ countriesForm.value | json }}</h5>
+
